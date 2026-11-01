@@ -1,119 +1,251 @@
-# Concurso+ 3.0
+# 📚 Concurso+ | Sistema de Gerenciamento de Estudos para Concursos Públicos
 
-Sistema de gerenciamento de estudos para concursos públicos, feito em **HTML, CSS e JavaScript**, com persistência **em arquivo JavaScript local (`Data/dados.js`)**, sem banco de dados e sem dependências npm de terceiros.
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 
-## IMPORTANTE — forma correta de executar
+**O Concurso+ nasceu de um problema real identificado com amigos que estudam para concursos públicos:** a dificuldade de encontrar um aplicativo que reunisse, de forma prática, o registro das sessões de estudo, o planejamento de revisões, o acompanhamento das horas estudadas e a análise do desempenho em questões.
 
-**Esta versão NÃO deve ser aberta pelo Live Server e NÃO deve ser executada diretamente pelo `index.html`.** Navegadores não têm permissão para regravar arquivos `.js` locais. Por esse motivo, o projeto inclui um servidor Node.js mínimo que serve as páginas e grava o arquivo automaticamente.
+Antes de desenvolver a solução, realizei um **levantamento e análise de requisitos com esses estudantes**, buscando entender suas rotinas, dificuldades e necessidades. A partir dessas conversas, organizei e documentei os requisitos funcionais e, somente depois, iniciei a implementação do sistema.
 
-### Windows (VS Code ou terminal)
+O resultado é uma aplicação para **transformar registros de estudo em informações úteis para a preparação**: visualizar a constância, identificar os assuntos com mais erros, acompanhar as revisões pendentes e redistribuir esforços ao longo do tempo. A proposta é apoiar decisões de estudo mais conscientes, sem prometer ou garantir aprovação. Também permite modo Desktop ou Mobile, bem como modo claro ou escuro, objetivando melhor experiência do usuário.
 
-1. Instale **Node.js 18 ou superior** (recomenda-se uma versão LTS atual).
-2. Extraia o ZIP. Abra a pasta **ConcursoPlus** no VS Code ou no Explorador.
-3. Dê um duplo clique em **`iniciar.bat`** ou abra um terminal nessa pasta e execute:
+> **Privacidade e funcionamento local:** nesta versão, os dados são mantidos na própria instalação do aplicativo, sem envio a serviços externos ou necessidade de criar uma conta. Cada cópia possui seu arquivo de informações. O projeto já conta com **persistência local em arquivo**, e versões futuras poderão incluir uma alternativa de persistência mais estruturada ou sincronização opcional, ainda a definir.
 
-   ```bash
-   npm start
-   ```
+---
 
-4. Abra no navegador: **http://127.0.0.1:3100**.
-5. Deixe a janela do terminal aberta enquanto estiver utilizando o aplicativo.
+## 📱 Visualização do sistema — Desktop e Mobile
 
-Não é necessário executar `npm install`, pois todas as dependências são nativas do Node.js. O aplicativo só escuta o endereço local `127.0.0.1`.
+As capturas abaixo foram produzidas a partir da **versão mais recente do Concurso+**, com **dados fictícios**. O mesmo sistema é apresentado em telas desktop e mobile, utilizando o tema escuro como referência visual. O aplicativo também oferece tema claro.
 
-No Linux/macOS, abra um terminal na pasta do projeto e execute `npm start`.
+## 1. Registros
+### 1.1. Visão geral dos registros
 
-## Onde os dados são armazenados?
+O painel inicial reúne sessões, horas estudadas, questões respondidas, acertos, erros e taxa de aproveitamento. Filtros por grupo e banca permitem explorar o histórico sem perder a visão global. Cada registro pode incluir grupo, conteúdo, banca, data, tipo de atividade (estudo ou revisão), duração, número de questões, acertos e anotações. Também é possível agendar lembretes para revisões futuras.
 
+### 1.2. Planejamento e acompanhamento de revisões
+
+Revisões realizadas e lembretes futuros são apresentados separadamente. Concluir um lembrete elimina a pendência, mas não cria automaticamente uma sessão realizada nem altera os indicadores de desempenho.
+
+| Desktop | Mobile |
+|:---:|:---:|
+| [![Visão geral dos registros — Desktop](images/visao_geral_desktop.png)](images/visao_geral_desktop.png) | [![Visão geral dos registros — Mobile](images/visao_geral_mobile.png)](images/visao_geral_mobile.png) |
+
+
+
+### 1.3. Organização por grupos e conteúdos
+
+Grupos e conteúdos têm prioridades, cores e filtros próprios. O histórico pode ser expandido por assunto, com acesso a ações de criação, edição e exclusão. Além de visualização por últimos registros inseridos.
+
+| Desktop | Mobile |
+|:---:|:---:|
+| [![Visão geral dos registros — Desktop](images/grupo_conteudo_desktop.png)](images/grupo_conteudo_desktop.png) | [![Visão geral dos registros — Mobile](images/grupo_conteudo_mobile.png)](images/grupo_conteudo_mobile.png) |
+
+### 1.4. Histórico e consulta de atividades
+
+A listagem mostra data, banca, duração, questões, acertos e resultado por sessão. Anotações ficam acessíveis ao passar o cursor sobre o ícone ou ao focalizá-lo com o teclado.
+
+| Desktop | Mobile |
+|:---:|:---:|
+| [![Visão geral dos registros — Desktop](images/ultimos_registros_desktop.png)](images/ultimos_registros_desktop.png) | [![Visão geral dos registros — Mobile](images/ultimos_registros_mobile.png)](images/ultimos_registros_mobile.png) |
+
+## 2. Estatísticas
+### 2.1. Painel geral de estatísticas
+
+Indicadores de horas, registros, questões, acertos, erros e aproveitamento são calculados a partir das sessões persistidas. Os filtros permitem restringir a análise por período, grupo e banca.
+
+| Desktop | Mobile |
+|:---:|:---:|
+| [![Visão geral dos registros — Desktop](images/visao_geral_estatisticas_desktop.png)](images/visao_geral_estatisticas_desktop.png) | [![Visão geral dos registros — Mobile](images/visao_geral_estatisticas_mobile.png)](images/visao_geral_estatisticas_mobile.png) |
+
+### 2.2. Calendário de estudos com cor personalizável
+
+Calendário mensal interativo com escolha de cor e intensidade conforme a duração diária: menos de 3 horas em tom suave; de 3 a 4 horas em tom acentuado; acima de 4 horas com borda destacada. Ao selecionar um dia, aparecem as sessões, conteúdos, bancas, questões, acertos e observações.
+
+| Desktop | Mobile |
+|:---:|:---:|
+| [![Visão geral dos registros — Desktop](images/calendario_desktop.png)](images/calendario_desktop.png) | [![Visão geral dos registros — Mobile](images/calendario_mobile.png)](images/calendario_mobile.png) |
+
+### 2.3. Grupos mais estudados
+
+Rosca de distribuição do tempo entre grupos, com legenda associada às cores e aos valores de horas. O componente aparece imediatamente após o calendário.
+
+| Desktop | Mobile |
+|:---:|:---:|
+| [![Visão geral dos registros — Desktop](images/rosca_horas_grupo_desktop.png)](images/rosca_horas_grupo_desktop.png) | [![Visão geral dos registros — Mobile](images/rosca_horas_grupo_mobile.png)](images/rosca_horas_grupo_mobile.png) |
+
+### 2.4. Evolução mensal de horas e questões
+
+Gráfico de linhas com duas escalas independentes: questões no eixo esquerdo e horas no direito. A janela exibida nesta versão vai de **outubro de 2026 a fevereiro de 2028**; meses sem registros são apresentados com valor zero.
+
+| Desktop | Mobile |
+|:---:|:---:|
+| [![Visão geral dos registros — Desktop](images/evolucao_mensal_desktop.png)](images/evolucao_mensal_desktop.png) | [![Visão geral dos registros — Mobile](images/evolucao_mensal_mobile.png)](images/evolucao_mensal_mobile.png) |
+
+### 2.5. Acertos, erros e dedicação semanal
+
+Uma rosca resume respostas corretas e incorretas, com opção de selecionar um grupo. Ao lado, colunas verticais mostram as horas acumuladas por dia da semana, com aproveitamento do espaço em diferentes telas. Abaixo há indicadores compactos de desempenho: Os conteúdos com mais erros absolutos usam colunas compactas; as maiores taxas de erro são exibidas em escalas pontuais; os melhores e piores aproveitamentos aparecem em indicadores circulares.
+
+| Desktop | Mobile |
+|:---:|:---:|
+| [![Visão geral dos registros — Desktop](images/acertos_erros_desktop.png)](images/acertos_erros_desktop.png) | [![Visão geral dos registros — Mobile](images/acertos_erros_mobile.png)](images/acertos_erros_mobile.png) |
+
+
+### 2.6. Conteúdos recorrentes e pontos críticos
+
+Um mosaico proporcional (*treemap*) destaca os seis conteúdos com maior dedicação. O painel **Muito estudo e baixo desempenho** apresenta cartões objetivos com horas e taxa de acerto para conteúdos com pelo menos 10 questões, tempo acima da mediana e aproveitamento inferior a 65%. Abaixo colunas compactas mostram as revisões por grupo; cartões destacam os conteúdos mais revisados e os menos revisitados. A prioridade de atenção é calculada como **erros ÷ (1 + revisões)**, considerando conteúdos com pelo menos 10 questões. Somente sessões registradas como revisão entram nessas estatísticas.
+
+| Desktop | Mobile |
+|:---:|:---:|
+| [![Visão geral dos registros — Desktop](images/mosaico_desktop.png)](images/mosaico_desktop.png) | [![Visão geral dos registros — Mobile](images/mosaico_mobile.png)](images/mosaico_mobile.png) |
+
+### 2.7. Comparativos Top 5 por conteúdo
+
+Os gráficos **Horas dedicadas por conteúdo** e **Desempenho por conteúdo** usam roscas com legenda e mostram apenas os cinco primeiros colocados. No primeiro, as fatias representam horas estudadas; no segundo, representam a **quantidade absoluta de acertos** dos cinco melhores por taxa, enquanto a legenda informa a taxa de acerto individual.
+
+| Desktop | Mobile |
+|:---:|:---:|
+| [![Comparativos Top 5 por conteúdo — Desktop](images/comparativo_desktop.png)](images/comparativo_desktop.png) | [![Comparativos Top 5 por conteúdo — Mobile](images/comparativo_mobile.png)](images/comparativo_mobile.png) |
+
+## ⚙️ Funcionalidades e regras de negócio
+
+- **Registros de estudo:** cadastro, edição, exclusão e consulta de sessões, com identificação da banca, duração, questões respondidas, acertos, anotações e distinção entre estudo e revisão.
+- **Organização de conteúdos:** estrutura hierárquica de grupos e assuntos, com cores, prioridades e filtros por banca e grupo.
+- **Revisões:** criação de lembretes futuros e acompanhamento das revisões realizadas, sem misturar lembretes com sessões efetivamente concluídas.
+- **Indicadores de desempenho:** totais de horas, sessões, questões, acertos, erros e taxa de aproveitamento, calculados dos dados cadastrados; roscas de acertos/erros e distribuição de horas por grupo.
+- **Análise de pontos fracos:** colunas compactas de erros absolutos, escalas pontuais de taxas de erro, indicadores circulares dos melhores e piores aproveitamentos e cartões para alto tempo de estudo com baixo desempenho (mínimo de 10 questões nos indicadores percentuais).
+- **Calendário e evolução:** cor personalizável com escala de intensidade por duração diária, destaque dos dias acima de quatro horas e gráfico mensal de horas e questões em eixos independentes.
+- **Dados e backups:** armazenamento automático local, importação/exportação JSON, cópia de segurança e migração de dados de versão anterior.
+- **Comparativos e revisões:** treemap de conteúdos estudados, painéis compactos de revisões realizadas, índice de atenção por erros ÷ (1 + revisões) e gráficos de rosca Top 5 de horas e acertos.
+- **Aparência:** temas claro e escuro, interface responsiva em desktop e mobile e anotações acessíveis por hover e foco do teclado.
+
+## 🛠️ Tecnologias e arquitetura
+
+**Frontend** — HTML5, CSS3 e JavaScript (vanilla), sem frameworks de interface. Componentes, tabelas, interações, gráficos e calendário são construídos com recursos nativos da aplicação, incluindo o estilo específico da página de estatísticas em `Style/estatisticas-redesign.css`.
+
+**Servidor local** — Node.js 18+ com os módulos nativos `http`, `fs`, `path` e `crypto`. O backend disponibiliza as páginas e uma API local (`GET /api/data` e `PUT /api/data`) para leitura e atualização do arquivo de dados. **Não são necessárias dependências npm de terceiros.**
+
+**Persistência** — arquivo `Data/dados.js` gravado automaticamente na pasta do projeto. As atualizações passam por validações e escrita em arquivo temporário antes da substituição; a versão anterior é copiada para `Data/dados-anteriores.js`. O controle de revisão evita sobrescritas silenciosas entre abas desatualizadas.
+
+> **Importante:** armazenamento local não significa autenticação, criptografia ou isolamento entre contas no mesmo computador. Pessoas com acesso à pasta podem ler os arquivos. O aplicativo foi desenvolvido para uso local e individual; **não exponha o servidor à internet**.
+
+## 🚀 Como executar o projeto localmente
+
+### Pré-requisitos
+
+- **Node.js 18 ou superior**.
+- Terminal ou prompt de comando.
+- Navegador moderno.
+
+### 1. Clonar o repositório
+
+```bash
+git clone https://github.com/pedrot00/concurso-plus.git
+cd concurso-plus
 ```
-ConcursoPlus/
+
+> O link acima passa a funcionar quando este repositório for publicado com esse nome. Execute os comandos na pasta que contém `package.json` e `server.js`.
+
+### 2. Criar seu arquivo de dados local
+
+O repositório distribui somente um **arquivo de exemplo com dados fictícios**. Para criar seu armazenamento particular, copie-o para `Data/dados.js`.
+
+**Windows (PowerShell):**
+
+```powershell
+Copy-Item Data\dados.example.js Data\dados.js
+```
+
+**Linux e macOS:**
+
+```bash
+cp Data/dados.example.js Data/dados.js
+```
+
+Em seguida, você poderá modificar ou limpar os registros de demonstração pelo aplicativo. O arquivo `Data/dados.js` está no `.gitignore` e **não deve ser versionado**.
+
+### 3. Iniciar o aplicativo
+
+```bash
+npm start
+```
+
+No Windows, também é possível executar o arquivo `iniciar.bat`.
+
+Abra no navegador:
+
+**http://127.0.0.1:3100**
+
+O servidor utiliza somente a interface local `127.0.0.1`. Mantenha o processo aberto durante o uso. Não é necessário executar `npm install`, pois o projeto não utiliza pacotes de terceiros.
+
+## 💾 Armazenamento, privacidade e backups
+
+O Concurso+ **salva automaticamente** as alterações em `Data/dados.js`, preservando grupos, conteúdos, sessões, revisões e preferência de tema entre acessos. Não há dependência de banco de dados remoto nesta versão.
+
+Cada instalação possui seu próprio conjunto de dados. Isso evita misturar informações entre **cópias distintas** do aplicativo, mas a privacidade de cada arquivo depende das permissões de acesso do computador e da pasta. O sistema atualmente **não possui autenticação por usuário**.
+
+Para se proteger contra perda de arquivos, a aplicação oferece três mecanismos: cópia local da versão anterior (`Data/dados-anteriores.js`), exportação manual de backups JSON e importação de dados. Recomenda-se manter cópias dos backups fora da pasta do projeto.
+
+**Atenção ao GitHub:** nunca publique arquivos pessoais `Data/dados.js`, `Data/dados-anteriores.js` ou backups de uso real. Se esses arquivos já tiverem sido rastreados pelo Git, adicioná-los ao `.gitignore` não remove o histórico anterior.
+
+## 🗂️ Estrutura do projeto
+
+```text
+concurso-plus/
 ├── Data/
-│   ├── dados.js                   ← todos os grupos, conteúdos, registros, revisões e tema
-│   └── dados-anteriores.js        ← backup automático do estado anterior (após o primeiro salvamento)
+│   ├── dados.example.js       # Dados demonstrativos versionáveis
+│   ├── dados.js               # Dados pessoais locais (ignorado pelo Git)
+│   └── dados-anteriores.js    # Backup local automático (ignorado pelo Git)
 ├── Pages/
 │   ├── registros.html
 │   └── estatisticas.html
+├── Scripts/
+│   ├── store.js               # Estado, validação e persistência
+│   ├── utils.js               # Funções utilitárias
+│   ├── ui.js                  # Layout e interações compartilhadas
+│   ├── registros.js
+│   └── estatisticas.js
 ├── Style/
 │   ├── base.css
 │   ├── registros.css
 │   ├── estatisticas.css
+│   ├── estatisticas-redesign.css # Gráficos e layout atualizados
 │   └── polish.css
-├── Scripts/
-│   ├── store.js                   ← validação, controle e chamadas à API local
-│   ├── utils.js
-│   ├── ui.js
-│   ├── registros.js
-│   └── estatisticas.js
-├── tests/
-├── server.js                     ← servidor local e gravação atômica
-├── package.json
-├── iniciar.bat
+├── docs/
+│   └── screenshots/           # Capturas desktop e mobile
+├── tests/                     # Testes automatizados
 ├── index.html
+├── iniciar.bat                # Inicialização no Windows
+├── server.js                  # Servidor e API local
+├── package.json
+├── .gitignore
 └── README.md
 ```
 
-**Ao criar, atualizar ou excluir qualquer informação, os dados são salvos em `Data/dados.js`.** Esse arquivo é um objeto JavaScript serializado em texto; não há SQLite, IndexedDB ou `localStorage` para armazenar dados do usuário. A preferência de tema também é salva nele. Os dados permanecem após fechar o navegador ou reiniciar o computador, desde que a pasta e o arquivo sejam preservados.
+## ✅ Testes
 
-**Portabilidade:** copie a pasta `ConcursoPlus` inteira (ou no mínimo seu código e `Data/dados.js`) para outro computador com Node.js. Execute `npm start` e os dados estarão disponíveis. Não compartilhe o arquivo `Data/dados.js` publicamente se contiver informações que deseja manter privadas.
-
-**Proteção contra perdas:** a aplicação valida registros no frontend e no servidor, grava em arquivo temporário e renomeia-o ao final (gravação atômica). Em cada salvamento, mantém também uma cópia da versão anterior em `Data/dados-anteriores.js`. Além disso, há a função **Dados e backup → Exportar backup** que gera um arquivo JSON manual para guardar em outro local. Backups automáticos não substituem cópias externas.
-
-## Migrar dados do Concurso+ anterior (localStorage)
-
-A versão 2.0 guardava as informações no navegador. A versão 3.0 passa a gravar em arquivo e **não consegue acessar automaticamente** o armazenamento de outra origem/porta (ex.: `localhost:5500` do Live Server). Para preservar seus dados, **não apague a versão anterior antes de concluir a migração**.
-
-1. Abra a versão antiga **no mesmo navegador e endereço usados anteriormente**.
-2. Entre em **Dados e backup → Exportar backup**. Guarde o JSON.
-3. Inicie a versão 3.0 por `npm start` e acesse `http://127.0.0.1:3100`.
-4. Entre em **Dados e backup → Importar backup** e selecione o JSON exportado.
-5. Confirme que os indicadores e registros reapareceram e que o arquivo `Data/dados.js` foi atualizado.
-
-O menu também oferece uma tentativa de migração direta do `localStorage`, mas **ela só funciona caso os dados antigos estejam armazenados na mesma origem**. Em caso de dúvida, prefira o procedimento por exportação/importação JSON.
-
-## Funcionalidades
-
-### Registros
-
-- Criar, editar e excluir grupos, conteúdos e registros, com validação de valores e prioridades.
-- Cores específicas por grupo, revisão de notas e ícone ao lado da data que **mostra as notas ao passar o mouse**, sem clique. Para acessibilidade, também funciona por foco do teclado.
-- Indicadores de sessões, horas, questões, acertos, erros e taxa de desempenho.
-- Revisões realizadas e lembretes futuros, organizados antes de conteúdos por grupo; grupos expansíveis.
-- Lembretes são independentes dos registros: marcá-los como realizados só exclui o lembrete, sem inflar as estatísticas.
-- Layout em colunas quando há espaço suficiente, com rolagem horizontal somente nas tabelas mais amplas.
-
-### Estatísticas
-
-- Calendário navegável por mês: cada dia tem cor do grupo com mais tempo de estudo, intensificada acima de quatro horas. O tempo total aparece em destaque na célula.
-- Ao selecionar uma data no calendário, são exibidas **todas as sessões do dia**: grupo, conteúdo, banca, tipo, tempo, número de questões, acertos, percentual e anotação.
-- Gráfico de duas linhas suaves: **verde** para questões e **vermelho** para horas, com eixo X fixo de **outubro/2026 a fevereiro/2028** (17 meses). Cada indicador usa sua escala vertical própria.
-- Gráficos de rosca para acertos/erros e distribuição das horas por grupo; gráficos de colunas para horários e desempenho por conteúdo, e para distribuição semanal.
-- Barras comparativas para erros, taxa de desempenho, conteúdos estudados, frequência e necessidade de revisão.
-- Indicadores de revisões calculados exclusivamente a partir de registros do tipo `Revisão`, não de lembretes futuros.
-- Todos os gráficos são derivados das sessões efetivamente salvas, sem percentuais inventados.
-
-## Dados demonstrativos
-
-O arquivo distribuído vem com **três grupos, seis conteúdos e sete sessões de demonstração**. Esses dados podem ser editados, excluídos ou apagados em **Dados e backup → Limpar todos os dados**. Faça backup antes de substituir dados que queira preservar.
-
-## Desenvolvimento e testes
-
-Para executar os testes automatizados de servidor, renderização dos gráficos e persistência, use:
+Na raiz do projeto, execute:
 
 ```bash
 npm test
 ```
 
-Os testes usam uma cópia isolada dos dados de exemplo, **sem modificar `Data/dados.js` do usuário**.
+O comando executa os testes automatizados do servidor, da persistência e da renderização usando o test runner nativo do Node.js.
 
-## Observações
+## 🧭 Próximas evoluções
 
-- Não feche o terminal do servidor enquanto estiver usando a aplicação.
-- Para mudar a porta, configure a variável de ambiente `PORT` antes de executar o servidor, e então use o endereço com essa porta.
-- Caso abra simultaneamente duas abas antigas, o controle de revisão da gravação evita que uma sobrescreva silenciosamente as alterações da outra. Se surgir um aviso de conflito, recarregue a página.
-- Esta aplicação é local e individual. Não há autenticação e o servidor não deve ser disponibilizado na Internet.
+O desenvolvimento do Concurso+ partiu das necessidades levantadas com estudantes e continuará orientado por melhorias de usabilidade e organização da rotina. Possíveis próximos passos:
 
-## Página Estatísticas redesenhada (novembro de 2026)
+- Introduzir uma opção de persistência estruturada e/ou sincronização de dados, preservando a proposta de privacidade e controle do usuário.
+- Permitir maior personalização dos períodos e das visualizações estatísticas.
+- Ampliar os recursos de planejamento e acompanhamento de revisões.
+- Evoluir a experiência de uso com base em novos feedbacks de estudantes.
 
-A página `Pages/estatisticas.html` utiliza `Scripts/estatisticas.js` e `Style/estatisticas-redesign.css` para apresentar gráficos compactos, rankings de desempenho, distribuição de estudo por grupos e calendário com cor personalizável. No calendário, registros com menos de três horas recebem cor suave; de três a quatro horas, cor acentuada; mais de quatro horas, borda destacada.
+*Esses itens são possibilidades futuras e não representam funcionalidades já implementadas.*
 
-**Dados incluídos:** esta distribuição vem preenchida com 240 registros fictícios para demonstrar os gráficos e filtros. Os dados ficam em `Data/dados.js`; faça backup antes de substituir por dados reais. O servidor gerencia esse arquivo enquanto estiver em execução, portanto evite editá-lo pelo VS Code com o servidor aberto.
+## 👨‍💻 Autor
+
+**Pedro S. Teixeira** — [GitHub](https://github.com/pedrot00)
+
+Se o projeto for útil para sua rotina de estudos, considere deixar uma estrela no repositório.
