@@ -1,0 +1,11 @@
+{
+  "name": "concurso-plus",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Controle local e portável de estudos para concursos públicos",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "engines": {"node": ">=18"}
+}
